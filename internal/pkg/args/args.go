@@ -41,8 +41,9 @@ func validateVerb(verb Verb) (Verb, error) {
 
 func isValidObjectForVerbValue(verb Verb) bool {
 	if utils.StringSliceContains([]string{VerbLogin}, verb.Value) {
-		return true
-	} else if utils.StringSliceContains(getAvailableObjectValues(), verb.Object.Value) {
+		if len(verb.Object.Value) == 0 {
+			return false
+		}
 		return true
 	}
 	return false

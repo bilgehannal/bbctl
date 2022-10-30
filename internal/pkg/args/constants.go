@@ -3,6 +3,8 @@ package args
 const (
 	VerbLogin = "login"
 
+	ObjectProject = "project"
+
 	ParameterUser1     = "-u"
 	ParameterUser2     = "--user"
 	ParameterPassword1 = "-p"
@@ -19,7 +21,7 @@ func GetAvailableVerbValues() []string {
 }
 
 func getAvailableObjectValues() []string {
-	return []string{}
+	return []string{"project"}
 }
 
 func getAvailableFlagValues() []string {
