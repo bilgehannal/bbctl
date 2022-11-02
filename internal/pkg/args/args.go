@@ -1,8 +1,8 @@
 package args
 
 import (
-	"github.com/bilgehannal/bbctl/internal/pkg/errors"
-	"github.com/bilgehannal/bbctl/internal/pkg/utils"
+	"github.com/bilgehannal/harbctl/internal/pkg/errors"
+	"github.com/bilgehannal/harbctl/internal/pkg/utils"
 )
 
 type Args struct {

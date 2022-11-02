@@ -1,7 +1,7 @@
 package operations
 
 import (
-	"github.com/bilgehannal/bbctl/internal/pkg/args"
+	"github.com/bilgehannal/harbctl/internal/pkg/args"
 )
 
 type OperationBuilder interface {

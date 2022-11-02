@@ -1,5 +1,5 @@
 package env
 
 const (
-	BbctlConfigPath = "BBCTL_CONFIG_PATH"
+	HarbctlConfigPath = "HARBCTL_CONFIG_PATH"
 )

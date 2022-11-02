@@ -2,7 +2,7 @@ package operations
 
 import (
 	"fmt"
-	"github.com/bilgehannal/bbctl/internal/pkg/args"
+	"github.com/bilgehannal/harbctl/internal/pkg/args"
 )
 
 type LoginOperationBuilder struct{}

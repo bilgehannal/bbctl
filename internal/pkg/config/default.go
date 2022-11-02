@@ -2,7 +2,7 @@ package config
 
 import (
 	"encoding/json"
-	"github.com/bilgehannal/bbctl/internal/env"
+	"github.com/bilgehannal/harbctl/internal/env"
 	"io/ioutil"
 	"log"
 	"os"
@@ -32,7 +32,7 @@ func (d DefaultConfig) GetContextFromUrl(url string) (bool, Context) {
 }
 
 func GetDefaultConfigFilePath() string {
-	configFolder := os.Getenv(env.BbctlConfigPath)
+	configFolder := os.Getenv(env.HarbctlConfigPath)
 	return configFolder + "/config.json"
 }
 

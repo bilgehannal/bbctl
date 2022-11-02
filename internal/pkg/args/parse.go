@@ -1,7 +1,7 @@
 package args
 
 import (
-	"github.com/bilgehannal/bbctl/internal/pkg/errors"
+	"github.com/bilgehannal/harbctl/internal/pkg/errors"
 	"log"
 	"strings"
 )
