@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/bilgehannal/bbctl/internal/pkg/args"
-	"github.com/bilgehannal/bbctl/internal/pkg/operations"
+	"github.com/bilgehannal/harbctl/internal/pkg/args"
+	"github.com/bilgehannal/harbctl/internal/pkg/operations"
 	"os"
 )
 
