@@ -15,6 +15,7 @@ type Operation interface {
 func GetOperationBuilderMap() map[string]OperationBuilder {
 	return map[string]OperationBuilder{
 		args.VerbLogin: LoginOperationBuilder{},
+		"get":          GettingOperationBuilder{},
 	}
 }
 

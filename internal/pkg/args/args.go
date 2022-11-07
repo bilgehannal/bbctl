@@ -3,6 +3,7 @@ package args
 import (
 	"github.com/bilgehannal/harbctl/internal/pkg/errors"
 	"github.com/bilgehannal/harbctl/internal/pkg/utils"
+	"strings"
 )
 
 type Args struct {
@@ -12,8 +13,10 @@ type Args struct {
 }
 
 type Verb struct {
-	Value  string
-	Object Object
+	Value            string
+	Object           Object
+	IsObjectCombined bool
+	SecondObject     Object
 }
 
 type Object struct {
@@ -49,10 +52,16 @@ func validateVerb(verb Verb) (Verb, error) {
 }
 
 func isValidObjectForVerbValue(verb Verb) bool {
+	objectValue := verb.Object.Value
+	if verb.IsObjectCombined {
+		objectValue = strings.Split(objectValue, ":")[0]
+	}
 	if utils.StringSliceContains([]string{VerbLogin}, verb.Value) {
 		if len(verb.Object.Value) == 0 {
 			return false
 		}
+		return true
+	} else if utils.StringSliceContains(getAvailableObjectValues(), objectValue) {
 		return true
 	}
 	return false

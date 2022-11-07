@@ -3,12 +3,33 @@ package config
 import (
 	"encoding/base64"
 	"github.com/bilgehannal/harbctl/internal/pkg/errors"
+	"time"
 )
 
 type Context struct {
 	Url      string `json:"url"`
 	User     string `json:"user"`
 	Password string `json:"password"`
+}
+
+func (c Context) Deadline() (deadline time.Time, ok bool) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (c Context) Done() <-chan struct{} {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (c Context) Err() error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (c Context) Value(key any) any {
+	//TODO implement me
+	panic("implement me")
 }
 
 type ContextBuilder struct{}

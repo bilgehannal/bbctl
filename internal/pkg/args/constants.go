@@ -24,13 +24,11 @@ func GetParameterTypes() ParameterType {
 }
 
 func GetAvailableVerbValues() []string {
-	return []string{
-		VerbLogin,
-	}
+	return []string{"login", "get"}
 }
 
 func getAvailableObjectValues() []string {
-	return []string{"project"}
+	return []string{"projects"}
 }
 
 func getAvailableFlagValues() []string {

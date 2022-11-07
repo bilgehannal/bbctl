@@ -2,11 +2,11 @@ package operations
 
 import (
 	"context"
+	"fmt"
 	"github.com/bilgehannal/harbctl/internal/pkg/args"
 	"github.com/bilgehannal/harbctl/internal/pkg/config"
 	"github.com/bilgehannal/harbctl/internal/pkg/errors"
 	"github.com/bilgehannal/harbctl/internal/pkg/harbor"
-	"log"
 )
 
 type LoginOperationBuilder struct{}
@@ -32,9 +32,7 @@ func (l LoginOperation) Run() {
 	if err != nil {
 		errors.FatalPanic("Default conf cannot be set...", err)
 	}
-	log.Println(userInfo)
-	log.Println(defaultConfig)
-	log.Println("Login Successful...")
+	fmt.Println("Login Successful...")
 }
 
 func (l LoginOperationBuilder) CreateOperation(argsInstance args.Args) Operation {

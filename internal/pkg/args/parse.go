@@ -15,10 +15,21 @@ func getVerb(args []string) (Verb, error) {
 	if len(args) < 2 {
 		return Verb{}, errors.VerbMissingArgumentsError{}
 	}
+	objectValue := args[orderOfObjectValue]
+	isObjectCombined := false
+	secondObjectValue := ""
+	if strings.Contains(objectValue, ":") {
+		isObjectCombined = true
+		secondObjectValue = strings.Split(objectValue, ":")[1]
+	}
 	currentVerb := Verb{
 		Value: args[orderOfVerbValue],
 		Object: Object{
-			Value: args[orderOfObjectValue],
+			Value: objectValue,
+		},
+		IsObjectCombined: isObjectCombined,
+		SecondObject: Object{
+			Value: secondObjectValue,
 		},
 	}
 	return validateVerb(currentVerb)

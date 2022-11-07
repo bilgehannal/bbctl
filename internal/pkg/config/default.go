@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/bilgehannal/harbctl/internal/env"
 	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"log"
@@ -43,7 +44,7 @@ func getDefaultConfigFilePath() string {
 func GetDefaultConfig() DefaultConfig {
 	content, err := os.ReadFile(getDefaultConfigFilePath())
 	if err != nil {
-		log.Println("There is no default config. Creating default config...")
+		fmt.Println("There is no default config. Creating default config...")
 		return createNewDefualtConfig()
 	}
 	var payload DefaultConfig
@@ -59,7 +60,7 @@ func createNewDefualtConfig() DefaultConfig {
 }
 
 func (d *DefaultConfig) SetDefaultConfig(ctx Context, userInfo *model.UserResp) error {
-	log.Println("girdii")
+	fmt.Println("girdii")
 	if !d.IsThereAnyActiveContext() {
 		err := os.MkdirAll(getDefaultConfigPath(), 0700)
 		if err != nil {
