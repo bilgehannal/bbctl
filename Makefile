@@ -1,5 +1,5 @@
 compile:
-	go build github.com/bilgehannal/bbctl/cmd/bbctl && echo 'Compiling Succesfull...'
+	go build github.com/bilgehannal/harbctl/cmd/harbctl && echo 'Compiling Succesfull...'
 
 unit_test:
 	go test ./... -coverprofile=coverage.out -coverpkg=./...

@@ -3,7 +3,7 @@ package config
 import (
 	"encoding/json"
 	"github.com/bilgehannal/harbctl/internal/env"
-	"io/ioutil"
+	"github.com/mittwald/goharbor-client/v5/apiv2/model"
 	"log"
 	"os"
 )
@@ -14,45 +14,85 @@ type DefaultConfig struct {
 }
 
 func (d DefaultConfig) GetActiveContext() Context {
-	activeContextUrl := d.ActiveContext
-	isContextValid, activeContext := d.GetContextFromUrl(activeContextUrl)
+	activeContextUser := d.ActiveContext
+	isContextValid, activeContext := d.GetContextFromUser(activeContextUser)
 	if !isContextValid {
 		log.Fatal("Active context cannot be found in context list!")
 	}
 	return activeContext
 }
 
-func (d DefaultConfig) GetContextFromUrl(url string) (bool, Context) {
+func (d DefaultConfig) GetContextFromUser(userName string) (bool, Context) {
 	for _, context := range d.Contexts {
-		if context.Url == url {
+		if context.User == userName {
 			return true, context
 		}
 	}
 	return false, Context{}
 }
 
-func GetDefaultConfigFilePath() string {
-	configFolder := os.Getenv(env.HarbctlConfigPath)
+func getDefaultConfigPath() string {
+	return os.Getenv(env.HarbctlConfigPath)
+}
+
+func getDefaultConfigFilePath() string {
+	configFolder := getDefaultConfigPath()
 	return configFolder + "/config.json"
 }
 
 func GetDefaultConfig() DefaultConfig {
-	content, err := ioutil.ReadFile(GetDefaultConfigFilePath())
+	content, err := os.ReadFile(getDefaultConfigFilePath())
 	if err != nil {
-		log.Fatal("Error when opening config file: ", err)
+		log.Println("There is no default config. Creating default config...")
+		return createNewDefualtConfig()
 	}
 	var payload DefaultConfig
 	err = json.Unmarshal(content, &payload)
 	if err != nil {
-		log.Fatal("Error during Unmarshal(): ", err)
+		panic(err)
 	}
 	return payload
 }
 
-func (d DefaultConfig) SetDefaultConfig() {
-	file, _ := json.MarshalIndent(d, "", "  ")
-	err := ioutil.WriteFile(GetDefaultConfigFilePath(), file, 0644)
-	if err != nil {
-		log.Fatal("Error during Unmarshal(): ", err)
+func createNewDefualtConfig() DefaultConfig {
+	return DefaultConfig{}
+}
+
+func (d *DefaultConfig) SetDefaultConfig(ctx Context, userInfo *model.UserResp) error {
+	log.Println("girdii")
+	if !d.IsThereAnyActiveContext() {
+		err := os.MkdirAll(getDefaultConfigPath(), 0700)
+		if err != nil {
+			return err
+		}
+		d.ActiveContext = ctx.User
 	}
+	d.removeContextFromDefaultConfig(ctx.User)
+	d.Contexts = append(d.Contexts, ctx)
+	file, _ := json.MarshalIndent(d, "", "  ")
+	err := os.WriteFile(getDefaultConfigFilePath(), file, 0644)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DefaultConfig) removeContextFromDefaultConfig(userName string) {
+	for i := 0; i < len(d.Contexts); i++ {
+		if d.Contexts[i].User == userName {
+			d.Contexts = removeIndex(d.Contexts, i)
+			return
+		}
+	}
+}
+
+func removeIndex(s []Context, index int) []Context {
+	return append(s[:index], s[index+1:]...)
+}
+
+func (d DefaultConfig) IsThereAnyActiveContext() bool {
+	if d.ActiveContext == "" {
+		return false
+	}
+	return true
 }

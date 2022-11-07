@@ -29,6 +29,15 @@ type Parameter struct {
 	ValueOfParameter string
 }
 
+func (args Args) GetParameter(parameterTypes []string) (Parameter, error) {
+	for _, param := range args.Params {
+		if utils.StringSliceContains(parameterTypes, param.TypeOfParameter) {
+			return param, nil
+		}
+	}
+	return Parameter{}, errors.ParameterNotFoundError{}
+}
+
 func validateVerb(verb Verb) (Verb, error) {
 	if !utils.StringSliceContains(GetAvailableVerbValues(), verb.Value) {
 		return verb, errors.VerbUnsoppertedError{}

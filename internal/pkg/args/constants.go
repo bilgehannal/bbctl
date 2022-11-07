@@ -5,14 +5,23 @@ const (
 
 	ObjectProject = "project"
 
-	ParameterUser1     = "-u"
-	ParameterUser2     = "--user"
-	ParameterPassword1 = "-p"
-	ParameterPassword2 = "--password"
-
 	FlagHelp1 = "--help"
 	FlagHelp2 = "-h"
 )
+
+type ParameterType struct {
+	User     []string
+	Password []string
+	File     []string
+}
+
+func GetParameterTypes() ParameterType {
+	return ParameterType{
+		User:     []string{"-u", "--user"},
+		Password: []string{"-p", "--password"},
+		File:     []string{"--file", "-f"},
+	}
+}
 
 func GetAvailableVerbValues() []string {
 	return []string{
@@ -32,7 +41,7 @@ func getAvailableFlagValues() []string {
 
 func getAvailableParameterTypes() []string {
 	return []string{
-		ParameterUser1, ParameterUser2,
-		ParameterPassword1, ParameterPassword2,
+		"-u", "--user",
+		"-p", "--password",
 	}
 }

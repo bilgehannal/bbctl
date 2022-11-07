@@ -1,5 +1,12 @@
 package errors
 
+import "log"
+
+func FatalPanic(errorText string, err error) {
+	log.Fatal(errorText, "\n", err)
+	panic(err)
+}
+
 type VerbMissingArgumentsError struct{}
 
 func (e VerbMissingArgumentsError) Error() string {
@@ -34,4 +41,10 @@ type ParameterUnsoppertedTypeError struct{}
 func (e ParameterUnsoppertedTypeError) Error() string {
 	return `The parameter type is not unsopperted. You can check the valid verbs using command below:
 		$ harbctl --help`
+}
+
+type ParameterNotFoundError struct{}
+
+func (e ParameterNotFoundError) Error() string {
+	return `Please give required parameters!`
 }

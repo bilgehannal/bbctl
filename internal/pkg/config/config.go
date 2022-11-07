@@ -1,5 +1,5 @@
 package config
 
-type BitbucketConfig interface {
+type HarborConfig interface {
 	GetActiveContext() Context
 }
